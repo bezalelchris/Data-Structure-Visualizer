@@ -2,32 +2,64 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Sorting Visualizer</title>
+  <meta name="description" content="Watch bubble, selection, insertion and merge sort run step by step, with live comparison and swap counts.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="container">
-    <h1>Sorting Algorithm Visualizer</h1>
+  <main class="bench">
+    <header class="head">
+      <h1>Sorting Visualizer</h1>
+      <p class="lede">Pick an algorithm and watch every comparison and swap happen.</p>
+    </header>
 
-    <div class="controls">
-      <label for="algorithm">Algorithm:</label>
-      <select id="algorithm">
-        <option value="bubble">Bubble Sort</option>
-        <option value="selection">Selection Sort</option>
-      </select>
+    <section class="controls" aria-label="Controls">
+      <div class="algos" role="radiogroup" aria-label="Algorithm">
+        <label><input type="radio" name="algo" value="bubble" checked><span>Bubble</span></label>
+        <label><input type="radio" name="algo" value="selection"><span>Selection</span></label>
+        <label><input type="radio" name="algo" value="insertion"><span>Insertion</span></label>
+        <label><input type="radio" name="algo" value="merge"><span>Merge</span></label>
+      </div>
 
-      <label for="speed">Speed:</label>
-      <input type="range" id="speed" min="10" max="1000" step="10" value="200">
+      <div class="sliders">
+        <label class="slider">
+          <span>Size <output id="size-out">40</output></span>
+          <input type="range" id="size" min="8" max="120" value="40">
+        </label>
+        <label class="slider">
+          <span>Speed</span>
+          <input type="range" id="speed" min="1" max="100" value="60">
+        </label>
+      </div>
 
-      <label for="size">Array Size:</label>
-      <input type="range" id="size" min="10" max="100" step="1" value="30">
+      <div class="actions">
+        <button id="shuffle" class="btn ghost" type="button">Shuffle</button>
+        <button id="run" class="btn primary" type="button">Sort</button>
+      </div>
+    </section>
 
-      <button id="generate">Generate Array</button>
-      <button id="sort">Sort</button>
-    </div>
+    <section class="stage" aria-label="Array">
+      <div id="bars" class="bars"></div>
+    </section>
 
-    <div id="bars-container"></div>
-  </div>
+    <section class="readout" aria-live="polite">
+      <dl class="stats">
+        <div><dt>Comparisons</dt><dd id="cmp">0</dd></div>
+        <div><dt>Swaps / writes</dt><dd id="swp">0</dd></div>
+        <div><dt>Time complexity</dt><dd id="big-o">O(n²)</dd></div>
+      </dl>
+      <p id="about" class="about"></p>
+      <ul class="legend" aria-label="Color legend">
+        <li><i class="k compare"></i>Comparing</li>
+        <li><i class="k swap"></i>Swapping</li>
+        <li><i class="k done"></i>In final position</li>
+      </ul>
+    </section>
+  </main>
 
   <script src="script.js"></script>
 </body>
